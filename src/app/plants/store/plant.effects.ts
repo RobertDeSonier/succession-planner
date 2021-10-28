@@ -18,7 +18,7 @@ export class PlantEffects {
         )
       }),
       map(plants => plants?.map(plant => new Plant(plant.name, plant.daysToProduction, plant.harvestType, plant.monthsOfProduction, plant.id)) ?? []),
-      map(plants => new PlantActions.SetPlants(plants ?? []))
+      map(plants => new PlantActions.SetPlants(plants.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'accent'})) ?? []))
     ));
 
   storePlants = createEffect(() => this.actions$

@@ -1,4 +1,4 @@
-<div class="row" style="padding-bottom: 1em;">
+<!-- <div class="row" style="padding-bottom: 1em;"> -->
   <form [formGroup]="plantForm">
     <div>
       <input class="form-control-lg name-input" type="text" formControlName="name">
@@ -13,22 +13,23 @@
       <div class="col-auto days-div">
         <input class="form-control-sm days-input" type="text" formControlName="daysToProduction">
       </div>
-      <label class="col-sm-2 col-form-label col-form-label-sm days-lbl">days to mature</label>
+      <label class="col-sm-10 col-form-label col-form-label-sm days-lbl">days to mature</label>
     </div>
-    <div class="dropdown">
-      <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ harvestTypeLabel }}
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li class="dropdown-item" (click)="selectHarvestType(1)">Single Harvest</li>
-        <li class="dropdown-item" (click)="selectHarvestType(2)">Producer</li>
-      </ul>
-    </div>
-    <div class="row" *ngIf="isProducer">
-      <div class="col-auto days-div">
-        <input class="form-control-sm days-input" type="text" formControlName="monthsOfProduction">
+    <div class="row">
+      <div class="col-4 dropdown harvest-dropdown">
+        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ harvestTypeLabel }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li class="dropdown-item" (click)="selectHarvestType(1)">Single Harvest</li>
+          <li class="dropdown-item" (click)="selectHarvestType(2)">Producer</li>
+        </ul>
       </div>
-      <label class="col-sm-2 col-form-label col-form-label-sm days-lbl">months of production</label>
+      <div class="col-auto months-div" *ngIf="isProducer">
+        <input class="form-control-sm months-input" type="text" formControlName="monthsOfProduction">
+      </div>
+      <label *ngIf="isProducer" class="col-sm-6 col-form-label col-form-label-sm months-lbl">months of production</label>
     </div>
   </form>
-</div>
+  <hr class="dropdown-divider">
+<!-- </div> -->

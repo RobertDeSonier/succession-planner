@@ -13,6 +13,7 @@
   border-radius: .5em;
   border-width: .01em;
   width: 3em;
+  text-align: right;
 }
 
 .days-div {
@@ -20,6 +21,29 @@
 }
 
 .days-lbl {
+  padding-left: 0;
+}
+
+.harvest-dropdown {
+  padding-right: 0;
+}
+
+
+.months-input {
+  border-style: none;
+  border-color: grey;
+  border-radius: .5em;
+  border-width: .01em;
+  width: 3em;
+  text-align: right;
+}
+
+.months-div {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.months-lbl {
   padding-left: 0;
 }
 
