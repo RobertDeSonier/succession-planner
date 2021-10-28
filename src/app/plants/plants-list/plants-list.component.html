@@ -1,0 +1,3 @@
+<app-plant-list-item *ngFor="let plant of plants; let i = index" [id]="i"></app-plant-list-item>
+<button type="button" class="btn btn-secondary" (click)="addNewPlant()">Add New Plant</button>
+<button type="button" class="btn btn-primary" (click)="savePlants()">Save Plants</button>
