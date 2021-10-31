@@ -1,62 +1,9 @@
-.name-input {
-  border-style: solid;
-  border-color: grey;
-  border-radius: .5em;
-  border-width: .01em;
-  min-height: 1em;
-  padding: .1em 1rem;
+.plants-form {
+  min-width: 150px;
+  max-width: 245px;
+  width: 100%;
 }
 
-.days-input {
-  border-style: none;
-  border-color: grey;
-  border-radius: .5em;
-  border-width: .01em;
-  width: 3em;
-  text-align: right;
-}
-
-.days-div {
-  padding-right: 0;
-}
-
-.days-lbl {
-  padding-left: 0;
-}
-
-.harvest-dropdown {
-  padding-right: 0;
-}
-
-
-.months-input {
-  border-style: none;
-  border-color: grey;
-  border-radius: .5em;
-  border-width: .01em;
-  width: 3em;
-  text-align: right;
-}
-
-.months-div {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.months-lbl {
-  padding-left: 0;
-}
-
-.delete-button {
-  border-radius: .5em;
-  padding: 0px 4px 3px 4px;
-  margin-left: 1em;
-  margin-top: -.45em;
-}
-
-.btn-outline-info
-.btn-outline-info:hover {
-  color: #000;
-  background-color: #076072;
-  border-color: #076072;
+.plants-field-full-width {
+  width: 100%;
 }

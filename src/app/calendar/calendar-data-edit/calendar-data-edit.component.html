@@ -1,26 +1,25 @@
-<div class="container d-flex align-items-center justify-content-center">
-<div class="container">
-  <div class="dropdown">
-    <button class="btn btn-outline-dark btn-lg dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      {{ selectedPlant.name }}
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li class="dropdown-item" *ngFor="let plant of plants" (click)="selectPlant(plant.id)">{{plant.name}}</li>
-      <li *ngIf="newPlants.length > 0"><hr class="dropdown-divider"></li>
-      <li class="dropdown-item" *ngFor="let plant of newPlants" (click)="selectPlant(plant.id)">{{plant.name}}</li>
-    </ul>
-  </div>
-  <div>
-    <label class="col-sm-auto">Color:</label>
-    <input [(colorPicker)]="plantColor" [style.background]="plantColor" (colorPickerChange)="colorChanged($event)" style="width: 30px; height: 30px; margin-left: 10px"/>
-  </div>
-  <div [formGroup]="dataForm">
-    <label>Planting Dates:</label>
-    <div formArrayName="dates" *ngFor="let date of dateControls; let i = index" style="width: 180px">
-      <input type="date" class="form-control" [formControlName]="i"/>
+<div class="calendar-data-container">
+  <form class="calendar-data-form" (ngSubmit)="save()" [formGroup]="dataForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Plant</mat-label>
+      <mat-select formControlName="plant">
+        <mat-option *ngFor="let plant of plants" [value]="plant.id">{{ plant.name }}</mat-option>
+        <mat-divider></mat-divider>
+        <mat-option *ngFor="let plant of newPlants" [value]="plant.id">{{ plant.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="color-picker-field">
+      <input matInput [ngxMatColorPicker]="picker" formControlName="color">
+      <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #picker touchUi="false" color="primary"></ngx-mat-color-picker>
+    </mat-form-field>
+    <mat-form-field class="planting-date-field" appearance="fill" formArrayName="dates" *ngFor="let date of dateControls; let i = index">
+      <mat-label>Planting Date</mat-label>
+      <input matInput type="date" [formControlName]="i">
+    </mat-form-field>
+    <div>
+      <button mat-stroked-button type="button" (click)="addDate()">Add Date</button>
+      <button mat-stroked-button color="primary" type="submit">Save</button>
     </div>
-    <button class="btn btn-secondary btn-sm" (click)="addDate()">Add Date</button>
-    <button class="btn btn-primary btn-sm" (click)="save()">Save</button>
-  </div>
-</div>
+  </form>
 </div>

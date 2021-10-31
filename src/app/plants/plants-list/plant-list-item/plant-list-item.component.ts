@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime, takeUntil, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { debounceTime, map, take } from 'rxjs/operators';
 import * as fromApp from '../../../store/app.reducers';
-import { HarvestType } from '../../plant.model';
+import { HarvestType, HarvestTypeLabelMapping } from '../../plant.model';
 import * as PlantActions from '../../store/plant.actions';
 
 @Component({
@@ -16,38 +16,30 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
   @Input() id: number;
   plantForm: FormGroup;
   isProducer: boolean;
-  harvestTypeLabel: string;
+
+  harvestTypeLabels = HarvestTypeLabelMapping;
+  harvestTypes = Object.values(HarvestType).filter(value => typeof value === 'number');
 
   private subscriptions = new Subscription();
-  private unsubscribe = new Subject<void>();
 
   constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
     this.initForm();
 
-    this.plantForm.valueChanges
-    .pipe(debounceTime(1000),
-          takeUntil(this.unsubscribe))
-    .subscribe(formValue => {
+    this.subscriptions.add(this.plantForm.valueChanges
+      .pipe(debounceTime(2000))
+      .subscribe(formValue => {
         return this.store.dispatch(new PlantActions.UpdatePlant({ index: this.id, newPlant: formValue }));
-      });
+      }));
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe.next();
     this.subscriptions.unsubscribe();
   }
 
   deletePlant() {
     this.store.dispatch(new PlantActions.DeletePlant(this.id));
-  }
-
-  selectHarvestType(harvestType: HarvestType) {
-    this.plantForm.patchValue({ 'harvestType': harvestType });
-
-    this.isProducer = harvestType === HarvestType.producer;
-    this.harvestTypeLabel = this.isProducer ? 'Producer' : 'Single Harvest';
   }
 
   private initForm() {
@@ -58,7 +50,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
 
 
     this.subscriptions.add(this.store.select('plants')
-      .pipe(map(plantsState => plantsState.plants.find((plant, index) => index === this.id)))
+      .pipe(take(1), map(plantsState => plantsState.plants.find((plant, index) => index === this.id)))
       .subscribe(plant => {
         plantName = plant.name;
         plantDaysToProduction = plant.daysToProduction;
@@ -66,13 +58,12 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
         plantMonthsOfProduction = plant.monthsOfProduction;
 
         this.isProducer = plantHarvestType === HarvestType.producer;
-        this.harvestTypeLabel = this.isProducer ? 'Producer' : 'Single Harvest';
 
         this.plantForm = new FormGroup({
-          'name': new FormControl(plantName),
-          'daysToProduction': new FormControl(plantDaysToProduction),
-          'harvestType': new FormControl(plantHarvestType),
-          'monthsOfProduction': new FormControl(this.isProducer ? plantMonthsOfProduction : 0)
+          'name': new FormControl(plantName, Validators.required),
+          'daysToProduction': new FormControl(plantDaysToProduction, Validators.required),
+          'harvestType': new FormControl(plantHarvestType, Validators.required),
+          'monthsOfProduction': new FormControl(this.isProducer ? plantMonthsOfProduction : 0, Validators.required)
         });
       }));
   }

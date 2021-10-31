@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import * as d3 from 'd3';
-import { D3ZoomEvent, selection } from 'd3';
 
 @Component({
   selector: 'app-calendar-chart',
@@ -67,7 +66,7 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
     }
 
     this.width = window.innerWidth - this.margin.right - this.margin.left;
-    this.height = window.innerHeight - this.margin.top - this.margin.bottom - 90;
+    this.height = window.innerHeight - this.margin.top - this.margin.bottom - 110;
 
 
     this.zoom = d3.zoom()

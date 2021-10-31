@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-auth',
@@ -14,6 +22,8 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   error: string = null;
   authForm: FormGroup;
+
+  matcher = new MyErrorStateMatcher();
 
   constructor(private service: AuthService, private router: Router) {}
 
@@ -53,7 +63,6 @@ export class AuthComponent implements OnInit {
       this.error = errorMessage;
       this.isLoading = false;
     });
-
     this.authForm.reset();
   }
 }

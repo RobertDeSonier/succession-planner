@@ -1,35 +1,28 @@
-<!-- <div class="row" style="padding-bottom: 1em;"> -->
-  <form [formGroup]="plantForm">
-    <div>
-      <input class="form-control-lg name-input" type="text" formControlName="name">
-      <button type="button" class="btn btn-outline-danger btn-sm delete-button" (click)="deletePlant()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-        </svg>
-      </button>
-    </div>
-    <div class="row">
-      <div class="col-auto days-div">
-        <input class="form-control-sm days-input" type="text" formControlName="daysToProduction">
-      </div>
-      <label class="col-sm-10 col-form-label col-form-label-sm days-lbl">days to mature</label>
-    </div>
-    <div class="row">
-      <div class="col-4 dropdown harvest-dropdown">
-        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ harvestTypeLabel }}
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li class="dropdown-item" (click)="selectHarvestType(1)">Single Harvest</li>
-          <li class="dropdown-item" (click)="selectHarvestType(2)">Producer</li>
-        </ul>
-      </div>
-      <div class="col-auto months-div" *ngIf="isProducer">
-        <input class="form-control-sm months-input" type="text" formControlName="monthsOfProduction">
-      </div>
-      <label *ngIf="isProducer" class="col-sm-6 col-form-label col-form-label-sm months-lbl">months of production</label>
-    </div>
-  </form>
-  <hr class="dropdown-divider">
-<!-- </div> -->
+<form class="plants-form" [formGroup]="plantForm">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+    <button mat-icon-button color="warn" aria-label="Delete" (click)="deletePlant()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <mat-form-field class="plants-field-full-width" appearance="fill">
+    <mat-label>Days to Mature</mat-label>
+    <input matInput type="number" placeholder="Ex. 60" formControlName="daysToProduction">
+    <span matSuffix>days</span>
+  </mat-form-field>
+  <mat-form-field class="plants-field-full-width" appearance="fill">
+    <mat-label>Harvest Type</mat-label>
+    <mat-select formControlName="harvestType">
+      <mat-option *ngFor="let harvestType of harvestTypes" [value]="harvestType">{{ harvestTypeLabels[harvestType] }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="plants-field-full-width" appearance="fill" *ngIf="isProducer">
+    <mat-label>Months of Production</mat-label>
+    <input matInput type="number" placeholder="Ex. 1" formControlName="monthsOfProduction">
+    <span matSuffix>months</span>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+</form>
