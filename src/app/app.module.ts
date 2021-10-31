@@ -11,18 +11,26 @@ import { PlantListItemComponent } from './plants/plants-list/plant-list-item/pla
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import * as fromApp from './store/app.reducers';
-import { Store, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { PlantEffects } from './plants/store/plant.effects';
 import { CalendarEffects } from './calendar/store/calendar.effects';
-import * as PlantActions from './plants/store/plant.actions';
 import { CalendarChartComponent } from './calendar/calendar-chart/calendar-chart.component';
 import { CalendarDataEditComponent } from './calendar/calendar-data-edit/calendar-data-edit.component';
-import { ColorPickerModule } from 'ngx-color-picker';
 import { AuthComponent } from './auth/auth.component';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthService } from './auth/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +43,6 @@ import { AuthService } from './auth/auth.service';
     CalendarChartComponent,
     CalendarDataEditComponent,
     AuthComponent,
-    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,16 @@ import { AuthService } from './auth/auth.service';
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([PlantEffects, CalendarEffects]),
-    ColorPickerModule
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+    NgxMatColorPickerModule
   ],
   providers: [
     {
@@ -61,7 +77,8 @@ import { AuthService } from './auth/auth.service';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
   ],
   bootstrap: [AppComponent]
 })

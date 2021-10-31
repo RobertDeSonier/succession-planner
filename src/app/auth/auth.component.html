@@ -1,24 +1,32 @@
-<div class="container d-flex align-items-center justify-content-center">
-  <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <div class="alert alert-danger" *ngIf="error">
-      <p>{{error}}</p>
+<div class="auth-container">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form class="auth-form" (ngSubmit)="onSubmit()" [formGroup]="authForm" *ngIf="!isLoading">
+    <mat-form-field class="form-field-full-width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [errorStateMatcher]="matcher" placeholder="joe@email.com" formControlName="email">
+      <mat-error *ngIf="authForm.hasError('email') && !authForm.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="authForm.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field-full-width" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" [errorStateMatcher]="matcher" formControlName="password">
+      <mat-error *ngIf="authForm.hasError('password') && !authForm.hasError('required')">
+        Password requires at least 6 characters
+      </mat-error>
+      <mat-error *ngIf="authForm.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="error">
+        {{ error }}
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-stroked-button color="primary" type="submit" [disabled]="!authForm.valid">{{isLoginMode ? 'Login' : 'Sign Up'}}</button>
+      <button mat-button type="button" (click)="onSwitchMode()">Switch to {{isLoginMode ? 'Sign up' : 'Login'}}</button>
     </div>
-    <div *ngIf="isLoading" style="text-align: center;">
-      <app-loading-spinner></app-loading-spinner>
-    </div>
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
-      <div class="form-group">
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" class="form-control" formControlName="email">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" class="form-control" formControlName="password">
-      </div>
-      <div>
-        <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{isLoginMode ? 'Login' : 'Sign Up'}}</button> |
-        <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Switch to {{isLoginMode ? 'Sign up' : 'Login'}}</button>
-      </div>
-    </form>
-  </div>
+  </form>
 </div>

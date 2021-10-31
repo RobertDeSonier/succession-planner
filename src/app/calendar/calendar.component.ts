@@ -22,7 +22,6 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('calendar').subscribe(calendarState => {
       this.calendarData = calendarState.calendarData;
-      console.log(this.calendarData);
       this.buildCalendarData();
     });
   }
@@ -36,7 +35,7 @@ export class CalendarComponent implements OnInit {
     this.barColor = [];
     this.data = [];
 
-    this.barColor = this.calendarData.map(d => ({name: d.plant.name, color: d.color}));
+    this.barColor = this.calendarData.map(d => ({name: d.plant.name, color: d.color.toHexString()}));
     this.calendarData.forEach(d => d.plantingDates.forEach((date, i) =>
       {
         const start = new Date(date);

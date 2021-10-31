@@ -1,7 +1,5 @@
-<div class="container">
-  <div class="row">
-    <app-plant-list-item class="col-auto" style="padding-bottom: 0em;" *ngFor="let plant of plants; let i = index" [id]="i"></app-plant-list-item>
-  </div>
+<div class="plant-items-container">
+  <app-plant-list-item class="plant-item" *ngFor="let plant of plants; let i = index" [id]="i"></app-plant-list-item>
 </div>
-<button type="button" class="btn btn-secondary" (click)="addNewPlant()">Add New Plant</button>
-<button type="button" class="btn btn-primary" (click)="savePlants()">Save Plants</button>
+<button type="button" mat-stroked-button (click)="addNewPlant()">Add New Plant</button>
+<button type="button" mat-flat-button color="primary" (click)="savePlants()">Save Plants</button>

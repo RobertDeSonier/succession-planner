@@ -5,6 +5,11 @@ export enum HarvestType {
   producer = 2
 }
 
+export const HarvestTypeLabelMapping: Record<HarvestType, string> = {
+  [HarvestType.harvest]: 'Single Harvest',
+  [HarvestType.producer]: 'Producer'
+}
+
 export class Plant {
   constructor(public name: string, public daysToProduction: number, public harvestType: HarvestType, public monthsOfProduction: number, public id: string = null) {
     this.id = this.id ?? Guid.raw();
