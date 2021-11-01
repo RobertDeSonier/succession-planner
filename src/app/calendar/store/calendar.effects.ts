@@ -28,7 +28,7 @@ export class CalendarEffects {
         .map(dataPoint => {
           const foundPlant = plantsState.plants.find(plant => plant.id.localeCompare(dataPoint.plantId) === 0);
           const color = (dataPoint.color && dataPoint.color.r && dataPoint.color.g && dataPoint.color.b) ? new Color(dataPoint.color.r, dataPoint.color.g, dataPoint.color.b, dataPoint.color.a ?? 1) : CalendarData.defaultColor;
-          return new CalendarData(foundPlant, color, dataPoint.plantingDates.sort())})}),
+          return new CalendarData(foundPlant, color, dataPoint.plantingDates?.sort() ?? [])})}),
       map(data => new CalendarActions.SetCalendarData(data ?? []))
     ));
 
