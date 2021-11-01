@@ -62,6 +62,8 @@ export class CalendarDataEditComponent implements OnInit, OnDestroy {
           const newPlanting = this.newPlants.find(p => p.id === formValue.plant);
           if (newPlanting) {
             this.store.dispatch(new calendarActions.AddCalendarData(new CalendarData(newPlanting, formValue.color, formValue.dates)));
+            this.newPlants = this.newPlants.filter(p => p.id !== newPlanting.id);
+            this.plants.push(newPlanting);
           } else {
             const plant = this.plants.find(p => p.id === formValue.plant);
             this.store.dispatch(new calendarActions.UpdateCalendarData({ plantId: plant.id, newCalendarData: new CalendarData(plant, formValue.color, formValue.dates)}))
@@ -94,7 +96,7 @@ export class CalendarDataEditComponent implements OnInit, OnDestroy {
     let data = this.calendarData.find(d => d.plant.id === id);
     this.dataForm.patchValue({
       'plant': id,
-      'color': data.color,
+      'color': data?.color ?? CalendarData.defaultColor,
     }, { emitEvent: false});
     const dateArray = this.dateFormArray();
     dateArray.clear();
