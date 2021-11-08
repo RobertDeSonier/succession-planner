@@ -68,9 +68,9 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
     this.width = window.innerWidth - this.margin.right - this.margin.left;
     this.height = window.innerHeight - this.margin.top - this.margin.bottom - 110;
 
-
+    // When screen less than 500 .scaleExtent([15,32])
     this.zoom = d3.zoom()
-                  .scaleExtent([1,32])
+                  .scaleExtent([5,32])
                   .extent([[this.margin.left, 0], [this.width - this.margin.right, this.height]])
                   .on('zoom', e => this.zoomed(e));
 
@@ -178,7 +178,7 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
 
   private createXAxis(g, x: d3.ScaleTime<number, number, never>) {
     g.attr('class', 'x-axis-group')
-     .call(d3.axisTop(x).tickSize(-this.height))
+     .call(d3.axisTop(x).tickSize(-this.height).ticks(d3.timeDay))
      .selectAll('text')
      .attr('x', 14);
   }
