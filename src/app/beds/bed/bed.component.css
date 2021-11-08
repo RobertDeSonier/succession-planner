@@ -1,0 +1,5 @@
+.bed-space-layout {
+  display: grid;
+  column-gap: .06em;
+  row-gap: .06em;
+}

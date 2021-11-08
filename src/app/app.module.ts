@@ -20,6 +20,7 @@ import { CalendarDataEditComponent } from './calendar/calendar-data-edit/calenda
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthService } from './auth/auth.service';
+import { BedsComponent } from './beds/beds.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,6 +31,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { BedComponent } from './beds/bed/bed.component';
+import { BedSpaceComponent } from './beds/bed/bed-space/bed-space.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -43,6 +47,9 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     CalendarChartComponent,
     CalendarDataEditComponent,
     AuthComponent,
+    BedsComponent,
+    BedComponent,
+    BedSpaceComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    NgxMatColorPickerModule
+    NgxMatColorPickerModule,
+    DragDropModule
   ],
   providers: [
     {

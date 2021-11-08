@@ -1,0 +1,9 @@
+<app-bed
+  class="bed-drag-drop"
+  [style.width]="getBedWidth(colNumber)"
+  [style.height]="getBedHeight(rowNumber)"
+  [style.transform]="getBedStartPosition()"
+  [numberOfColumns]="colNumber"
+  [bedSpaces]="flattenBedSpaces(bedSpaces)"
+  cdkDrag>
+</app-bed>
