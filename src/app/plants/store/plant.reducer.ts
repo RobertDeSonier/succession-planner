@@ -38,6 +38,11 @@ export function plantReducer(state = initialState, action: PlantActions.PlantAct
         ...state,
         plants: state.plants.filter((_, index) => index !== action.payload)
       };
+    case PlantActions.CLEAR_PLANTS:
+      return {
+        ...state,
+        plants: []
+      }
     default:
       return state;
   }

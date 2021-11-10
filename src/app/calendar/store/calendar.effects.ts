@@ -7,15 +7,17 @@ import { CalendarData } from "../calendar.model";
 import { Color } from "@angular-material-components/color-picker";
 import * as CalendarActions from "./calendar.actions";
 import * as fromApp from '../../store/app.reducers';
+import { AuthService } from "src/app/auth/auth.service";
 
 @Injectable()
 export class CalendarEffects {
   fetchPlants = createEffect(() => this.actions$
     .pipe(
       ofType(CalendarActions.FETCH_CALENDAR_DATA),
-      switchMap(actionData => {
+      withLatestFrom(this.authService.user),
+      switchMap(([actionData, user]) => {
         return this.http.get<CalendarDataDB[]>(
-          'https://succession-planner-default-rtdb.firebaseio.com/calendar_data.json'
+          `https://succession-planner-default-rtdb.firebaseio.com/${user.id}/calendar_data.json`
         )
       }),
       withLatestFrom(this.store.select('plants')),
@@ -37,16 +39,17 @@ export class CalendarEffects {
       ofType(CalendarActions.STORE_CALENDAR_DATA),
       withLatestFrom(this.store.select('calendar')),
       map(([actionData, calendarState]) => calendarState.calendarData.map(data => new CalendarDataDB(data.plant.id, { r: data.color.r, g: data.color.g, b: data.color.b, a: data.color.a}, data.plantingDates))),
-      switchMap(calendarDataDB => {
+      withLatestFrom(this.authService.user),
+      switchMap(([calendarDataDB, user]) => {
         return this.http.put(
-          'https://succession-planner-default-rtdb.firebaseio.com/calendar_data.json',
+          `https://succession-planner-default-rtdb.firebaseio.com/${user.id}/calendar_data.json`,
           calendarDataDB
         );
       })
     ),
   {dispatch: false});
 
-  constructor(private actions$: Actions, private http: HttpClient, private store: Store<fromApp.AppState>) {}
+  constructor(private actions$: Actions, private http: HttpClient, private store: Store<fromApp.AppState>, private authService: AuthService) {}
 }
 
 class CalendarDataDB {

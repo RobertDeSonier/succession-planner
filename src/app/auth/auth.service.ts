@@ -5,6 +5,10 @@ import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { User } from "./user.model";
+import { Store } from "@ngrx/store";
+import * as fromApp from './../store/app.reducers';
+import * as CalendarActions from './../calendar/store/calendar.actions';
+import * as PlantActions from './../plants/store/plant.actions';
 
 export interface AuthResponseData {
   idToken:	string;
@@ -21,7 +25,7 @@ export class AuthService {
 
   private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private store: Store<fromApp.AppState>) {}
 
   signup(email: string, password: string) {
     return this.http.post<AuthResponseData>(
@@ -70,6 +74,8 @@ export class AuthService {
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
+    this.store.dispatch(new CalendarActions.ClearCalendarData());
+    this.store.dispatch(new PlantActions.ClearPlants());
     this.router.navigate(['/auth']);
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
