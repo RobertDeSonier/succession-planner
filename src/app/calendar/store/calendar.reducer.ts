@@ -39,6 +39,11 @@ export function calendarReducer(state = initialState, action: CalendarActions.Ca
         ...state,
         calendarData: state.calendarData.filter(data => data.plant.id !== action.payload)
       };
+    case CalendarActions.CLEAR_CALENDAR_DATA:
+      return {
+        ...state,
+        calendarData: []
+      }
     default:
       return state;
   }

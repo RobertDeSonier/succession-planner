@@ -7,6 +7,7 @@ export const ADD_PLANT = '[Plant] Add';
 export const UPDATE_PLANT = '[Plant] Update';
 export const DELETE_PLANT = '[Plant] Delete';
 export const STORE_PLANTS = '[Plant] Store';
+export const CLEAR_PLANTS = '[Plant] Clear';
 
 export class SetPlants implements Action {
   readonly type = SET_PLANTS;
@@ -40,10 +41,15 @@ export class StorePlants implements Action {
   readonly type = STORE_PLANTS;
 }
 
+export class ClearPlants implements Action {
+  readonly type = CLEAR_PLANTS;
+}
+
 export type PlantActions =
  | SetPlants
  | FetchPlants
  | AddPlant
  | UpdatePlant
  | DeletePlant
- | StorePlants;
+ | StorePlants
+ | ClearPlants;

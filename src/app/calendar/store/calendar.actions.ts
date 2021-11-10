@@ -7,6 +7,7 @@ export const ADD_CALENDAR_DATA = '[Calendar Data] Add';
 export const UPDATE_CALENDAR_DATA = '[Calendar Data] Update';
 export const DELETE_CALENDAR_DATA = '[Calendar Data] Delete';
 export const STORE_CALENDAR_DATA = '[Calendar Data] Store';
+export const CLEAR_CALENDAR_DATA = '[Calendar Data] Clean';
 
 export class SetCalendarData implements Action {
   readonly type = SET_CALENDAR_DATA;
@@ -40,10 +41,15 @@ export class StoreCalendarData implements Action {
   readonly type = STORE_CALENDAR_DATA;
 }
 
+export class ClearCalendarData implements Action {
+  readonly type = CLEAR_CALENDAR_DATA;
+}
+
 export type CalendarActions =
  | SetCalendarData
  | FetchCalendarData
  | AddCalendarData
  | UpdateCalendarData
  | DeleteCalendarData
- | StoreCalendarData;
+ | StoreCalendarData
+ | ClearCalendarData;

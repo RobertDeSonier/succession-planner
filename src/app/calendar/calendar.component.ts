@@ -1,29 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { HarvestType, Plant } from '../plants/plant.model';
 import * as fromApp from '../store/app.reducers';
 import { CalendarData } from './calendar.model';
-import * as CalendarActions from './store/calendar.actions';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
-  // constructor(private store: Store<fromApp.AppState>) { }
+export class CalendarComponent implements OnInit, OnDestroy {
   calendarData: CalendarData[] = [];
   barColor: {name: string, color: string}[] = [];
   data: { name: string, order: number, start: Date, middle: Date, end: Date }[] = [];
 
+  private subscriptions = new Subscription();
+
   constructor(private store: Store<fromApp.AppState>, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.store.select('calendar').subscribe(calendarState => {
+    this.subscriptions.add(this.store.select('calendar')
+    .subscribe(calendarState => {
       this.calendarData = calendarState.calendarData;
       this.buildCalendarData();
-    });
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   plantEditClicked = (plantName: string) => {
