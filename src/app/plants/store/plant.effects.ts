@@ -6,15 +6,17 @@ import { map, switchMap, withLatestFrom } from "rxjs/operators";
 import { Plant } from "../plant.model";
 import * as PlantActions from "./plant.actions";
 import * as fromApp from '../../store/app.reducers';
+import { AuthService } from "src/app/auth/auth.service";
 
 @Injectable()
 export class PlantEffects {
   fetchPlants = createEffect(() => this.actions$
     .pipe(
       ofType(PlantActions.FETCH_PLANTS),
-      switchMap(actionData => {
+      withLatestFrom(this.authService.user),
+      switchMap(([actionData, user]) => {
         return this.http.get<Plant[]>(
-          'https://succession-planner-default-rtdb.firebaseio.com/plants.json'
+          `https://succession-planner-default-rtdb.firebaseio.com/${user.id}/plants.json`
         )
       }),
       map(plants => plants?.map(plant => new Plant(plant.name, plant.daysToProduction, plant.harvestType, plant.monthsOfProduction, plant.id)) ?? []),
@@ -25,14 +27,15 @@ export class PlantEffects {
     .pipe(
       ofType(PlantActions.STORE_PLANTS),
       withLatestFrom(this.store.select('plants')),
-      switchMap(([actionData, plantsState]) => {
+      withLatestFrom(this.authService.user),
+      switchMap(([[actionData, plantsState], user]) => {
         return this.http.put(
-          'https://succession-planner-default-rtdb.firebaseio.com/plants.json',
+          `https://succession-planner-default-rtdb.firebaseio.com/${user.id}/plants.json`,
           plantsState.plants
         );
       })
     ),
   {dispatch: false});
 
-  constructor(private actions$: Actions, private http: HttpClient, private store: Store<fromApp.AppState>) {}
+  constructor(private actions$: Actions, private http: HttpClient, private store: Store<fromApp.AppState>, private authService: AuthService) {}
 }
