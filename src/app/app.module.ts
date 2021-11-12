@@ -30,10 +30,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { BedComponent } from './beds/bed/bed.component';
 import { BedSpaceComponent } from './beds/bed/bed-space/bed-space.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PlantBedComponent } from './beds/plant-bed/plant-bed.component';
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AuthComponent,
     BedsComponent,
     BedComponent,
-    BedSpaceComponent
+    BedSpaceComponent,
+    PlantBedComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatProgressSpinnerModule,
     MatDividerModule,
     NgxMatColorPickerModule,
-    DragDropModule
+    DragDropModule,
+    MatSidenavModule
   ],
   providers: [
     {

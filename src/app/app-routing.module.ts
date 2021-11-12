@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
+import { BedsResolverService } from './beds/beds-resolver.service';
 import { BedsComponent } from './beds/beds.component';
 import { CalendarDataEditComponent } from './calendar/calendar-data-edit/calendar-data-edit.component';
 import { CalendarResolverService } from './calendar/calendar-resolver.service';
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard], resolve: [CalendarResolverService] },
   { path: 'calendar/edit', component: CalendarDataEditComponent, canActivate: [AuthGuard], resolve: [CalendarResolverService] },
   { path: 'calendar/edit/:id', component: CalendarDataEditComponent, canActivate: [AuthGuard], resolve: [CalendarResolverService] },
-  { path: 'beds', component: BedsComponent, canActivate: [AuthGuard] },
+  { path: 'beds', component: BedsComponent, canActivate: [AuthGuard], resolve: [BedsResolverService] },
   { path: 'plants', component: PlantsComponent, canActivate: [AuthGuard], resolve: [PlantsResolverService] },
   { path: 'auth', component: AuthComponent }
 ];

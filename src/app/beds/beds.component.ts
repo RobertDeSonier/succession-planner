@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { BedSpace, SpaceType } from './bed.model';
+import * as fromApp from './../store/app.reducers';
+import { Plant } from '../plants/plant.model';
 
 @Component({
   selector: 'app-beds',
@@ -10,10 +13,12 @@ export class BedsComponent implements OnInit {
   colNumber: number;
   rowNumber: number;
   bedSpaces: BedSpace[][];
+  plants: Plant[];
 
-  constructor() { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.store.select('plants').subscribe(plantState => this.plants = plantState.plants);
     this.colNumber = 46;
     this.rowNumber = 92;
     this.bedSpaces = Array.from({length:this.rowNumber},()=>

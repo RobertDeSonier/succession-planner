@@ -1,9 +1,21 @@
-<app-bed
-  class="bed-drag-drop"
-  [style.width]="getBedWidth(colNumber)"
-  [style.height]="getBedHeight(rowNumber)"
-  [style.transform]="getBedStartPosition()"
-  [numberOfColumns]="colNumber"
-  [bedSpaces]="flattenBedSpaces(bedSpaces)"
-  cdkDrag>
-</app-bed>
+<mat-drawer-container hasBackdrop="false" autosize>
+  <mat-drawer #drawer mode="push">
+    <app-plant-bed *ngFor="let plant of plants" [plant]="plant"></app-plant-bed>
+  </mat-drawer>
+
+  <button mat-mini-fab color="primary" aria-label="plants" class="plants-toggle" (click)="drawer.toggle()">
+    <mat-icon>spa</mat-icon>
+  </button>
+  <app-bed
+    class="bed-drag-drop"
+    [style.width]="getBedWidth(colNumber)"
+    [style.height]="getBedHeight(rowNumber)"
+    [style.transform]="getBedStartPosition()"
+    [numberOfColumns]="colNumber"
+    [bedSpaces]="flattenBedSpaces(bedSpaces)"
+    cdkDrag>
+  </app-bed>
+
+</mat-drawer-container>
+
+
