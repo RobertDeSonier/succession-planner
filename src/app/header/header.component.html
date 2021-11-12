@@ -1,9 +1,24 @@
 <mat-toolbar color="primary">
   <span>Succession Planner</span>
-  <a mat-button routerLinkActive="active-route" [routerLink]="['/calendar']" *ngIf="isAuthenticated">Calendar</a>
-  <!-- <a mat-button routerLinkActive="active-route" [routerLink]="['/beds']" *ngIf="isAuthenticated">Beds</a> -->
-  <a mat-button routerLinkActive="active-route" [routerLink]="['/plants']" *ngIf="isAuthenticated">Plants</a>
-  <a mat-button routerLinkActive="active-route" [routerLink]="['/auth']" *ngIf="!isAuthenticated">Authenticate</a>
-  <span class="example-spacer"></span>
-  <a mat-button (click)="onLogout()" *ngIf="isAuthenticated">Logout</a>
+  <div mat-button routerLinkActive="active-route" class="nav-button" [routerLink]="['/calendar']" *ngIf="isAuthenticated">
+    <mat-icon class="nav-icon" [style.transform]="'rotate(-90deg)'">analytics</mat-icon>
+    <div class="nav-text">Calendar</div>
+  </div>
+  <!-- <div mat-button routerLinkActive="active-route" class="nav-button" [routerLink]="['/beds']" *ngIf="isAuthenticated">
+    <mat-icon class="nav-icon">view_comfy</mat-icon>
+    <div class="nav-text">Beds</div>
+  </div> -->
+  <div mat-button routerLinkActive="active-route" class="nav-button" [routerLink]="['/plants']" *ngIf="isAuthenticated">
+    <mat-icon class="nav-icon">spa</mat-icon>
+    <div class="nav-text">Plants</div>
+  </div>
+  <span class="spacer"></span>
+  <div mat-button routerLinkActive="active-route" class="nav-button" [routerLink]="['/auth']" *ngIf="!isAuthenticated">
+    <div class="nav-text">Login</div>
+    <mat-icon class="nav-icon">login</mat-icon>
+  </div>
+  <div mat-button class="nav-button" (click)="onLogout()" *ngIf="isAuthenticated">
+    <div class="nav-text">Logout</div>
+    <mat-icon class="nav-icon">logout</mat-icon>
+  </div>
 </mat-toolbar>
