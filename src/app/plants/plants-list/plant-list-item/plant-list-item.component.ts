@@ -47,6 +47,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
     let plantDaysToProduction = 60;
     let plantHarvestType = HarvestType.harvest;
     let plantMonthsOfProduction = 1;
+    let plantSquaredInches = 4;
 
 
     this.subscriptions.add(this.store.select('plants')
@@ -56,6 +57,7 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
         plantDaysToProduction = plant.daysToProduction;
         plantHarvestType = plant.harvestType;
         plantMonthsOfProduction = plant.monthsOfProduction;
+        plantSquaredInches = plant.sizeSquareInches;
 
         this.isProducer = plantHarvestType === HarvestType.producer;
 
@@ -63,7 +65,8 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
           'name': new FormControl(plantName, Validators.required),
           'daysToProduction': new FormControl(plantDaysToProduction, Validators.required),
           'harvestType': new FormControl(plantHarvestType, Validators.required),
-          'monthsOfProduction': new FormControl(this.isProducer ? plantMonthsOfProduction : 0, Validators.required)
+          'monthsOfProduction': new FormControl(this.isProducer ? plantMonthsOfProduction : 0, Validators.required),
+          'sizeSquareInches': new FormControl(plantSquaredInches, Validators.required)
         });
       }));
   }

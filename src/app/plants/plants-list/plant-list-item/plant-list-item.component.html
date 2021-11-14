@@ -8,10 +8,15 @@
       <mat-icon>delete</mat-icon>
     </button>
   </div>
-  <mat-form-field class="plants-field-full-width" appearance="fill">
+  <mat-form-field class="days-to-maturity-field">
     <mat-label>Days to Mature</mat-label>
     <input matInput type="number" placeholder="Ex. 60" formControlName="daysToProduction">
     <span matSuffix>days</span>
+  </mat-form-field>
+  <mat-form-field class="plant-size-field">
+    <mat-label>Size</mat-label>
+    <input matInput type="number" placeholder="Ex. 4" formControlName="sizeSquareInches">
+    <span matSuffix>in²</span>
   </mat-form-field>
   <mat-form-field class="plants-field-full-width" appearance="fill">
     <mat-label>Harvest Type</mat-label>

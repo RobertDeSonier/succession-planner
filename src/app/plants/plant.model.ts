@@ -11,7 +11,13 @@ export const HarvestTypeLabelMapping: Record<HarvestType, string> = {
 }
 
 export class Plant {
-  constructor(public name: string, public daysToProduction: number, public harvestType: HarvestType, public monthsOfProduction: number, public id: string = null) {
+  constructor(
+    public name: string,
+    public daysToProduction: number,
+    public harvestType: HarvestType,
+    public monthsOfProduction: number,
+    public sizeSquareInches: number,
+    public id: string = null) {
     this.id = this.id ?? Guid.raw();
   }
 }

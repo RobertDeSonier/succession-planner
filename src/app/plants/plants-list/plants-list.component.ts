@@ -29,7 +29,7 @@ export class PlantsListComponent implements OnInit, OnDestroy {
   }
 
   addNewPlant() {
-    this.store.dispatch(new PlantActions.AddPlant(new Plant('', 60, HarvestType.harvest, 0)));
+    this.store.dispatch(new PlantActions.AddPlant(new Plant('', 60, HarvestType.harvest, 0, 4)));
   }
 
   savePlants() {

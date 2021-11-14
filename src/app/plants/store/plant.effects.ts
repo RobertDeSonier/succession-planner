@@ -19,7 +19,7 @@ export class PlantEffects {
           `https://succession-planner-default-rtdb.firebaseio.com/${user.id}/plants.json`
         )
       }),
-      map(plants => plants?.map(plant => new Plant(plant.name, plant.daysToProduction, plant.harvestType, plant.monthsOfProduction, plant.id)) ?? []),
+      map(plants => plants ? [...plants] : []),
       map(plants => new PlantActions.SetPlants(plants.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'accent'})) ?? []))
     ));
 

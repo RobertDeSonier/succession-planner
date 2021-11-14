@@ -7,3 +7,12 @@
 .plants-field-full-width {
   width: 100%;
 }
+
+.days-to-maturity-field {
+  width: 55%;
+  padding-right: .5em;
+}
+
+.plant-size-field {
+  width: 40%;
+}
