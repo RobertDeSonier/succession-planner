@@ -8,16 +8,23 @@
       <mat-icon>delete</mat-icon>
     </button>
   </div>
-  <mat-form-field class="days-to-maturity-field">
-    <mat-label>Days to Mature</mat-label>
-    <input matInput type="number" placeholder="Ex. 60" formControlName="daysToProduction">
-    <span matSuffix>days</span>
-  </mat-form-field>
-  <mat-form-field class="plant-size-field">
-    <mat-label>Size</mat-label>
-    <input matInput type="number" placeholder="Ex. 4" formControlName="sizeSquareInches">
-    <span matSuffix>in²</span>
-  </mat-form-field>
+  <div class="days-size-color-container">
+    <mat-form-field class="days-to-maturity-field">
+      <mat-label>Days to Mature</mat-label>
+      <input matInput type="number" placeholder="Ex. 60" formControlName="daysToProduction">
+      <span matSuffix>days</span>
+    </mat-form-field>
+    <mat-form-field class="plant-size-field">
+      <mat-label>Size</mat-label>
+      <input matInput type="number" placeholder="Ex. 4" formControlName="sizeSquareInches">
+      <span matSuffix>in²</span>
+    </mat-form-field>
+    <mat-form-field class="color-picker-field">
+      <input matInput [ngxMatColorPicker]="picker" formControlName="color">
+      <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #picker touchUi="false" color="primary"></ngx-mat-color-picker>
+    </mat-form-field>
+  </div>
   <mat-form-field class="plants-field-full-width" appearance="fill">
     <mat-label>Harvest Type</mat-label>
     <mat-select formControlName="harvestType">

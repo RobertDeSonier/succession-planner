@@ -29,8 +29,7 @@ export class CalendarEffects {
         .filter(dataPoint => plantsState.plants.some(plant => plant.id.localeCompare(dataPoint.plantId) === 0))
         .map(dataPoint => {
           const foundPlant = plantsState.plants.find(plant => plant.id.localeCompare(dataPoint.plantId) === 0);
-          const color = (dataPoint.color && dataPoint.color.r && dataPoint.color.g && dataPoint.color.b) ? new Color(dataPoint.color.r, dataPoint.color.g, dataPoint.color.b, dataPoint.color.a ?? 1) : CalendarData.defaultColor;
-          return new CalendarData(foundPlant, color, dataPoint.plantingDates?.sort() ?? [])})}),
+          return new CalendarData(foundPlant, dataPoint.plantingDates?.sort() ?? [])})}),
       map(data => new CalendarActions.SetCalendarData(data ?? []))
     ));
 
@@ -38,7 +37,7 @@ export class CalendarEffects {
     .pipe(
       ofType(CalendarActions.STORE_CALENDAR_DATA),
       withLatestFrom(this.store.select('calendar')),
-      map(([actionData, calendarState]) => calendarState.calendarData.map(data => new CalendarDataDB(data.plant.id, { r: data.color.r, g: data.color.g, b: data.color.b, a: data.color.a}, data.plantingDates))),
+      map(([actionData, calendarState]) => calendarState.calendarData.map(data => new CalendarDataDB(data.plant.id, data.plantingDates))),
       withLatestFrom(this.authService.user),
       switchMap(([calendarDataDB, user]) => {
         return this.http.put(
@@ -53,5 +52,5 @@ export class CalendarEffects {
 }
 
 class CalendarDataDB {
-  constructor(public plantId: string, public color: { r: number, g: number, b: number, a: number }, public plantingDates: Date[]) {}
+  constructor(public plantId: string, public plantingDates: Date[]) {}
 }

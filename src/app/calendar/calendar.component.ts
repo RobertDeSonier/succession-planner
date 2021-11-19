@@ -57,7 +57,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.data = [];
 
     const filteredData = this.calendarData.filter(d => !plantId || d.plant.id === plantId)
-    this.barColor = filteredData.map(d => ({name: d.plant.name, color: d.color.toHexString()}));
+    this.barColor = filteredData.map(d => ({name: d.plant.name, color: d.plant.color.toHexString()}));
     filteredData.forEach(d => d.plantingDates.forEach((date, i) =>
       {
         const start = new Date(date);

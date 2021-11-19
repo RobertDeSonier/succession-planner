@@ -8,11 +8,25 @@
   width: 100%;
 }
 
+.days-size-color-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .days-to-maturity-field {
+  flex: 2 1 auto;
   width: 55%;
   padding-right: .5em;
 }
 
 .plant-size-field {
-  width: 40%;
+  width: 25%;
+  flex: 1 1 auto;
+  padding-right: .5em;
+}
+
+.color-picker-field {
+  width: 22px;
+  flex: 0 0 22px;
 }

@@ -1,1 +1,9 @@
-<p style="padding: 5px 10px;">{{ plant.name }}</p>
+<div class="plant-bed-container">
+<p style="padding: 5px 0px 0px 0px; margin-bottom: .2em;">{{ plant.name }}</p>
+<app-plant-bed-spaces
+  class="plant-bed-drag-drop"
+  [style.width]="getBedWidth()"
+  [style.height]="getBedHeight()"
+  [plantSize]="plant.sizeSquareInches"
+  [color]="plant.color" cdkDrag></app-plant-bed-spaces>
+</div>

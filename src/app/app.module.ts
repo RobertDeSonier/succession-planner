@@ -36,6 +36,7 @@ import { BedComponent } from './beds/bed/bed.component';
 import { BedSpaceComponent } from './beds/bed/bed-space/bed-space.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PlantBedComponent } from './beds/plant-bed/plant-bed.component';
+import { PlantBedSpacesComponent } from './beds/plant-bed/plant-bed-spaces/plant-bed-spaces.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { PlantBedComponent } from './beds/plant-bed/plant-bed.component';
     BedsComponent,
     BedComponent,
     BedSpaceComponent,
-    PlantBedComponent
+    PlantBedComponent,
+    PlantBedSpacesComponent
   ],
   imports: [
     BrowserModule,

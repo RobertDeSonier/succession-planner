@@ -66,7 +66,8 @@ export class PlantListItemComponent implements OnInit, OnDestroy {
           'daysToProduction': new FormControl(plantDaysToProduction, Validators.required),
           'harvestType': new FormControl(plantHarvestType, Validators.required),
           'monthsOfProduction': new FormControl(this.isProducer ? plantMonthsOfProduction : 0, Validators.required),
-          'sizeSquareInches': new FormControl(plantSquaredInches, Validators.required)
+          'sizeSquareInches': new FormControl(plantSquaredInches, Validators.required),
+          'color': new FormControl(plant.color)
         });
       }));
   }

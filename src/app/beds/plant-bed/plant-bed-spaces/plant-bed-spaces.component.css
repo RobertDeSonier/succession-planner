@@ -1,0 +1,10 @@
+.plant-spaces-group {
+  display: grid;
+  column-gap: .06em;
+  row-gap: .06em;
+}
+
+.plant-space {
+  height: 5px;
+  width: 5px;
+}
