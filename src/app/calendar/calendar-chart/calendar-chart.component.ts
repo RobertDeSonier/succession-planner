@@ -70,7 +70,7 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
 
     // When screen less than 500 .scaleExtent([15,32])
     this.zoom = d3.zoom()
-                  .scaleExtent([5,32])
+                  .scaleExtent([1,32])
                   .extent([[this.margin.left, 0], [this.width - this.margin.right, this.height]])
                   .on('zoom', e => this.zoomed(e));
 
@@ -92,7 +92,7 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
     svgBase.call(this.zoom)
            .transition()
               .duration(750)
-              .call(base => this.zoom.scaleTo(base, 5, [this.x(new Date()), 0]));
+              .call(base => this.zoom.scaleTo(base, 4, [this.x(new Date()), 0]));
 
     let bar = this.svg.selectAll('.bar-group')
                  .data(this.data)
@@ -178,7 +178,7 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
 
   private createXAxis(g, x: d3.ScaleTime<number, number, never>) {
     g.attr('class', 'x-axis-group')
-     .call(d3.axisTop(x).tickSize(-this.height).ticks(d3.timeDay))
+     .call(d3.axisTop(x).tickSize(-this.height).ticks(d3.timeWeek))
      .selectAll('text')
      .attr('x', 14);
   }
