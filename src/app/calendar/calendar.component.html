@@ -1,2 +1,22 @@
-<app-calendar-chart [data]="data" [barColors]="barColor" [itemClicked]="plantEditClicked"></app-calendar-chart>
-<button mat-flat-button color="primary" style="margin-left: 55px;" [routerLink]="['edit']">New Plant</button>
+<ng-container *ngIf="!isScreenSmall">
+  <app-calendar-chart [data]="data" [barColors]="barColor" [itemClicked]="plantEditClicked" [showYAxis]="true"></app-calendar-chart>
+  <button mat-flat-button color="primary" style="margin-left: 55px;" [routerLink]="['edit']">New Plant</button>
+</ng-container>
+
+<ng-container *ngIf="isScreenSmall">
+  <div class="plant-select-container">
+    <mat-form-field class="plant-select">
+      <mat-label>Plant</mat-label>
+      <mat-select [value]="selectedPlantId" (selectionChange)="plantSelected($event.value)">
+        <mat-option *ngFor="let plant of plants, let i = index" [selected]="plant && i === 0" [value]="plant.id">{{ plant.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-icon-button color="basic" aria-label="edit" class="small-button" (click)="plantEditClicked(selectedPlantId)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" aria-label="new data" class="small-button" [routerLink]="['edit']">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+  <app-calendar-chart [data]="data" [barColors]="barColor" [itemClicked]="plantEditClicked" [showYAxis]="false"></app-calendar-chart>
+</ng-container>
