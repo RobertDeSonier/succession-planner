@@ -1,0 +1,13 @@
+.plant-select-container {
+  display: flex;
+  justify-content: center;
+}
+
+.plant-select {
+  padding-top: 3px;
+  padding-right: 8px;
+}
+
+.small-button {
+  padding-top: 8px;
+}

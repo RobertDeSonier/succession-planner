@@ -11,6 +11,7 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
   @Input() data!: { name: string, order: number, start: Date, middle: Date, end: Date }[];
   @Input() barColors: { name: string, color: string}[];
   @Input() itemClicked: (itemName: string) => void = _ => {};
+  @Input() showYAxis: boolean = true;
 
   margin = { top: 30, right: 5, bottom: 5, left: 150 };
   width = 960 - this.margin.right - this.margin.left;
@@ -65,6 +66,8 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
       return;
     }
 
+    this.margin.top = this.showYAxis ? 30 : 10;
+    this.margin.left = this.showYAxis ? 150 : 5;
     this.width = window.innerWidth - this.margin.right - this.margin.left;
     this.height = window.innerHeight - this.margin.top - this.margin.bottom - 110;
 
@@ -114,7 +117,9 @@ export class CalendarChartComponent implements AfterViewInit, OnChanges {
             .style('fill', 'white');
 
     this.xAxis = this.svg.append('g').call(g => this.createXAxis(g, this.x));
-    this.createYAxis(this.y);
+    if (this.showYAxis) {
+      this.createYAxis(this.y);
+    }
 
     this.createBar('start-bar', bar, d => this.x(d.start), d => this.x(d.middle) - this.x(d.start), .55);
     this.createBar('end-bar', bar, d => this.x(d.middle), d => this.x(d.end) - this.x(d.middle), 1);
